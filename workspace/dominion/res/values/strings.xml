@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">アプリテスト Dominit</string>
+    <string name="main_activity_title">ランダマイズ対象選択</string>
+    <string name="search">絞り込み</string>
+    <string name="randomize">ランダマイズ</string>
+    <string name="all">All</string>
+    <string name="card_cost">Cost</string>
+    <string name="card_num">No.</string>
+    <string name="card_name">カード名</string>
+    
+    <string name="change_visible_card_state">表示カード全てを…</string>
+    <string name="random_visible_card_state">ランダム対象に入れる</string>
+    <string name="delete_visible_card_state">ランダム対象から外す</string>
+    <string name="force_visible_card_state">必ず入れる</string>
+    
+    <string name="action_settings">Settings</string>
+
+</resources>
