@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.yfoggi.dominion.db.DbHelper;
 import com.yfoggi.dominion.db.entity.Card;
 import com.yfoggi.dominion.db.entity.Card.Selection;
+import com.yfoggi.dominion.db.service.CardService;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -36,11 +37,15 @@ public class MainActivity extends Activity {
 	private Button allBtn;
 	private ListView cardList;
 	private CardListAdapter cardListAdapter;
+	
+	private CardService cardService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		cardService = new CardService(this);
 		
 		readDb();
 		findViews();
@@ -49,23 +54,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private void readDb(){
-		DbHelper helper = new DbHelper(this);
-		SQLiteDatabase db = helper.getReadableDatabase();
-		
-		allCards = new ArrayList<Card>();
-		
-		Cursor c = db.query(Card.TABLE, Card.COLUMNS, null, null, null, null, "num asc");
-		
-		int[] idx = new int[Card.COLUMNS.length];
-		for(int i = 0; i < idx.length; i++){
-			idx[i] = c.getColumnIndex(Card.COLUMNS[i]);
-		}
-		
-		while(c.moveToNext()){
-			allCards.add(new Card(c, idx));
-		}
-		
-		c.close();
+		this.allCards = cardService.findAll();
 	}
 	
 	private void findViews(){
@@ -111,6 +100,7 @@ public class MainActivity extends Activity {
 									for(Card c : cardListAdapter.data){
 										c.selection = s;
 									}
+									cardService.updateSelection(cardListAdapter.data.toArray(new Card[0]));
 									cardListAdapter.notifyDataSetChanged();
 								}
 							}
@@ -180,6 +170,7 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					c.selection = c.selection.next();
+					cardService.updateSelection(new Card[]{c});
 					notifyDataSetChanged();
 				}
 			});
