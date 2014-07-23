@@ -6,12 +6,17 @@ import com.yfoggi.dominion.db.DbHelper;
 import com.yfoggi.dominion.db.entity.Card;
 import com.yfoggi.dominion.db.entity.Card.Selection;
 import com.yfoggi.dominion.db.service.CardService;
+import com.yfoggi.dominion.utils.Base64Utils;
+import com.yfoggi.dominion.utils.CardUtils;
+import com.yfoggi.dominion.utils.CardUtils.CardIsShort;
+import com.yfoggi.dominion.utils.CardUtils.CardIsTooMany;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -32,8 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private ArrayList<Card> allCards;
-	
+	private Button randomizeBtn;
 	private Button allBtn;
 	private ListView cardList;
 	private CardListAdapter cardListAdapter;
@@ -47,27 +51,46 @@ public class MainActivity extends Activity {
 		
 		cardService = new CardService(this);
 		
-		readDb();
 		findViews();
 		prepareAdapters();
 		initListeners();
 	}
 	
-	private void readDb(){
-		this.allCards = cardService.findAll();
-	}
-	
 	private void findViews(){
+		randomizeBtn = (Button)findViewById(R.id.randomize_btn);
 		allBtn = (Button)findViewById(R.id.all_btn);
 		cardList = (ListView)findViewById(R.id.card_list);
 	}
 	
 	private void prepareAdapters(){
-		cardListAdapter = new CardListAdapter(allCards);
+		cardListAdapter = new CardListAdapter(((MyApplication)getApplication()).allCards);
 		cardList.setAdapter(cardListAdapter);
-		
 	}
+	
 	private void initListeners(){
+		randomizeBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, RandomizedActivity.class);
+				
+				Card[] randomized;
+				try {
+					randomized = CardUtils.randomize(((MyApplication)getApplication()).allCards, 10);
+				} catch (CardIsShort e) {
+					Toast.makeText(MainActivity.this, "ランダム対象が少なすぎるっぽい！", Toast.LENGTH_SHORT).show();
+					return;
+				} catch (CardIsTooMany e) {
+					Toast.makeText(MainActivity.this, "強制が多すぎるっぽい！", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				String encoded = Base64Utils.to(randomized);
+				
+				intent.putExtra("cards", encoded);
+				
+				startActivity(intent);
+			}
+		});
 		allBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -155,6 +178,7 @@ public class MainActivity extends Activity {
 				holder.cardCostText = (TextView)convertView.findViewById(R.id.card_cost_text);
 				holder.cardNumText = (TextView)convertView.findViewById(R.id.card_num_text);
 				holder.cardNameText = (TextView)convertView.findViewById(R.id.card_name_text);
+				holder.cardExpansionText = (TextView)convertView.findViewById(R.id.card_expansion_text);
 				holder.chooseBtn = (Button)convertView.findViewById(R.id.choose_btn);
 				convertView.setTag(holder);
 			} else {
@@ -164,6 +188,7 @@ public class MainActivity extends Activity {
 			holder.cardCostText.setText(c.cost+"");
 			holder.cardNumText.setText(c.num+"");
 			holder.cardNameText.setText(c.name);
+			holder.cardExpansionText.setText(c.expansion);
 			holder.chooseBtn.setText(c.selection.icon);
 			
 			holder.chooseBtn.setOnClickListener(new OnClickListener() {
@@ -189,15 +214,12 @@ public class MainActivity extends Activity {
 		public long getItemId(int position) {
 			return getItem(position).id;
 		}
-		public void setData(ArrayList<Card> data){
-			this.data = new ArrayList<Card>(data);
-			notifyDataSetChanged();
-		}
 	}
 	private static class ViewHolder {
 		TextView cardCostText;
 		TextView cardNumText;
 		TextView cardNameText;
+		TextView cardExpansionText;
 		Button chooseBtn;
 	}
 }

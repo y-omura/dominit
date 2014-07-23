@@ -13,27 +13,20 @@
         android:id="@+id/desc_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/main_activity_title" />
+        android:text="@string/randomized_activity_title" />
 
     <RelativeLayout 
         android:id="@+id/menu_relative"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/search_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="@string/search" />
         
         <Button
-            android:id="@+id/randomize_btn"
+            android:id="@+id/tweet_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/randomize" />
+            android:text="@string/tweet" />
         
     </RelativeLayout>
     
@@ -80,12 +73,10 @@
 			android:layout_weight="3"
 			android:text="@string/card_expansion"
 			/>
-		<Button 
-			android:id="@+id/all_btn"
+		<View
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="0dp"
 			android:layout_weight="3"
-			android:text="@string/all"
 			/>
 	</LinearLayout>
    

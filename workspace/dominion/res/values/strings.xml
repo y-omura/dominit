@@ -3,12 +3,17 @@
 
     <string name="app_name">アプリテスト Dominit</string>
     <string name="main_activity_title">ランダマイズ対象選択</string>
+    <string name="randomized_activity_title">ランダマイズ結果</string>
     <string name="search">絞り込み</string>
     <string name="randomize">ランダマイズ</string>
+    <string name="tweet">ツイート</string>
+    <string name="change">変更</string>
     <string name="all">All</string>
+    
     <string name="card_cost">Cost</string>
     <string name="card_num">No.</string>
     <string name="card_name">カード名</string>
+    <string name="card_expansion">拡張</string>
     
     <string name="change_visible_card_state">表示カード全てを…</string>
     <string name="random_visible_card_state">ランダム対象に入れる</string>
