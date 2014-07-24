@@ -15,8 +15,13 @@ public class CardUtils {
 	
 	private static Random r = new Random(System.currentTimeMillis());
 	
-	public static Card[] randomize(ArrayList<Card> allCards, int length) throws CardIsShort, CardIsTooMany{
+	public static Card[] randomize(ArrayList<Card> allCards, ArrayList<Card> extraBan, int length) throws CardIsShort, CardIsTooMany{
+		if(extraBan == null){
+			extraBan = new ArrayList<Card>();
+		}
+		
 		ArrayList<Card> randomizer = new ArrayList<Card>(allCards);
+		randomizer.removeAll(extraBan);
 		//remove 'ban'
 		for(int i = randomizer.size()-1; i >= 0; i--){
 			if(randomizer.get(i).selection == Selection.BAN){

@@ -31,7 +31,7 @@
     <string name="delete_visible_card_state">ランダム対象から外す</string>
     <string name="force_visible_card_state">必ず入れる</string>
     <string name="delete_this_card">このカードを削除</string>
-    <string name="rerandomize_this_card">このカードをランダマイズしなおす</string>
+    <string name="rerandomize_this_card">ランダマイズしなおす</string>
     
     <string name="action_settings">設定</string>
     <string name="settings">設定</string>

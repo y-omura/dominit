@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +22,10 @@ import android.widget.TextView;
 
 import com.yfoggi.dominion.db.entity.Card;
 import com.yfoggi.dominion.utils.Base64Utils;
+import com.yfoggi.dominion.utils.CardUtils;
+import com.yfoggi.dominion.utils.CardUtils.CardIsShort;
+import com.yfoggi.dominion.utils.CardUtils.CardIsTooMany;
+import com.yfoggi.dominion.utils.MessageUtils;
 import com.yfoggi.dominion.utils.TweetUtils;
 
 public class RandomizedActivity extends Activity {
@@ -122,8 +128,37 @@ public class RandomizedActivity extends Activity {
 			holder.rerandomizeBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					//TODO
-					notifyDataSetChanged();
+					new AlertDialog.Builder(RandomizedActivity.this)
+						.setTitle("編集")
+						.setItems(
+								new String[]{
+										getString(R.string.rerandomize_this_card),
+										getString(R.string.delete_this_card),
+								},
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										if(which == 0){
+											Card[] cards;
+											try {
+												cards = CardUtils.randomize(((MyApplication)getApplication()).allCards, data, 1);
+											} catch (CardIsShort e) {
+												MessageUtils.error(RandomizedActivity.this, "ランダム対象が少なすぎるっぽい！");
+												return;
+											} catch (CardIsTooMany e) {
+												MessageUtils.error(RandomizedActivity.this, "強制が多すぎるっぽい！");
+												return;
+											}
+											data.remove(position);
+											data.add(cards[0]);
+											notifyDataSetChanged();
+										} else if(which == 1){
+											data.remove(position);
+											notifyDataSetChanged();
+										}
+									}
+								})
+						.show();
 				}
 			});
 			

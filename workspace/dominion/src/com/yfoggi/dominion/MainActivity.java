@@ -85,7 +85,7 @@ public class MainActivity extends Activity {
 				final boolean[] newQuery = Arrays.copyOf(expansionsFlag, expansionsFlag.length);
 				
 				new AlertDialog.Builder(MainActivity.this)
-					.setTitle("")
+					.setTitle("表示設定")
 					.setMultiChoiceItems(
 							expansions, 
 							newQuery,
@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
 				
 				Card[] randomized;
 				try {
-					randomized = CardUtils.randomize(((MyApplication)getApplication()).allCards, 10);
+					randomized = CardUtils.randomize(((MyApplication)getApplication()).allCards, null, 10);
 				} catch (CardIsShort e) {
 					Toast.makeText(MainActivity.this, "ランダム対象が少なすぎるっぽい！", Toast.LENGTH_SHORT).show();
 					return;
