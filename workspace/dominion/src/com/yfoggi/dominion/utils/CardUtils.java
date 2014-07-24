@@ -34,7 +34,7 @@ public class CardUtils {
 		}
 		
 		ArrayList<Card> randomizer = new ArrayList<Card>(allCards);
-		randomizer.removeAll(extraBan);
+		randomizer.removeAll(Arrays.asList(toCard(extraBan.toArray(new RandomizedCard[0]))));
 		//remove 'ban'
 		for(int i = randomizer.size()-1; i >= 0; i--){
 			if(randomizer.get(i).selection == Selection.BAN  ||
@@ -166,7 +166,7 @@ public class CardUtils {
 		return rcs;
 	}
 	
-	public static Card[] toRandomzied(RandomizedCard[] cs){
+	public static Card[] toCard(RandomizedCard[] cs){
 		Card[] rcs = new Card[cs.length];
 		for(int i = 0; i < rcs.length; i++){
 			rcs[i] = cs[i].card;
