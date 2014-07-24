@@ -83,7 +83,7 @@ public class RandomizedActivity extends Activity {
 		int id = item.getItemId();
 		if(id == R.id.action_tweet){
 			Intent intent = new Intent(RandomizedActivity.this, TweetActivity.class);
-			intent.putExtra("tweet", TweetUtils.shareCards(RandomizedActivity.this, cardListAdapter.data.toArray(new Card[0])));
+			intent.putExtra("tweet", TweetUtils.shareCards(RandomizedActivity.this, cardListAdapter.data.toArray(new RandomizedCard[0])));
 			startActivity(intent);
 		}
 		if (id == R.id.action_settings) {

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.yfoggi.dominion.db.entity.Card;
+import com.yfoggi.dominion.dto.RandomizedCard;
 
 public class TweetUtils {
 	private TweetUtils(){
@@ -39,10 +40,10 @@ public class TweetUtils {
 				new AccessToken(access, accessSecret));
 	}
 	
-	public static String shareCards(Context ctx, Card[] cards){
+	public static String shareCards(Context ctx, RandomizedCard[] randomizedCards){
 		StringBuilder sb = new StringBuilder();
-		for(Card c : cards){
-			sb.append(c.name).append(" ");
+		for(RandomizedCard c : randomizedCards){
+			sb.append(c.getName()).append(" ");
 		}
 		
 		return String.format("%s#dominit", sb.toString());
