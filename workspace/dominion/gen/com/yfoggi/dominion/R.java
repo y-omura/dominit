@@ -57,7 +57,7 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f060010;
+        public static final int action_settings=0x7f060011;
         public static final int all=0x7f060007;
         public static final int app_name=0x7f060000;
         public static final int card_cost=0x7f060008;
@@ -65,14 +65,15 @@ public final class R {
         public static final int card_name=0x7f06000a;
         public static final int card_num=0x7f060009;
         public static final int change=0x7f060006;
-        public static final int change_visible_card_state=0x7f06000c;
-        public static final int delete_visible_card_state=0x7f06000e;
-        public static final int force_visible_card_state=0x7f06000f;
+        public static final int change_visible_card_state=0x7f06000d;
+        public static final int delete_visible_card_state=0x7f06000f;
+        public static final int force_visible_card_state=0x7f060010;
         public static final int main_activity_title=0x7f060001;
-        public static final int random_visible_card_state=0x7f06000d;
+        public static final int random_visible_card_state=0x7f06000e;
         public static final int randomize=0x7f060004;
         public static final int randomized_activity_title=0x7f060002;
         public static final int search=0x7f060003;
+        public static final int share_cards_by_twitter=0x7f06000c;
         public static final int tweet=0x7f060005;
     }
     public static final class style {

@@ -15,6 +15,8 @@
     <string name="card_name">カード名</string>
     <string name="card_expansion">拡張</string>
     
+    <string name="share_cards_by_twitter">カードリストをツイッターで共有</string>
+    
     <string name="change_visible_card_state">表示カード全てを…</string>
     <string name="random_visible_card_state">ランダム対象に入れる</string>
     <string name="delete_visible_card_state">ランダム対象から外す</string>
