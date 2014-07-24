@@ -1,11 +1,14 @@
 package com.yfoggi.dominion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,12 +34,17 @@ import com.yfoggi.dominion.utils.CardUtils.CardIsShort;
 import com.yfoggi.dominion.utils.CardUtils.CardIsTooMany;
 
 public class MainActivity extends Activity {
+	private Button searchBtn;
 	private Button randomizeBtn;
 	private Button allBtn;
 	private ListView cardList;
 	private CardListAdapter cardListAdapter;
 	
 	private CardService cardService;
+	
+	//Search Query
+	private String[] expansions;
+	private boolean[] expansionsFlag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,11 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		cardService = new CardService(this);
+		expansions = cardService.findExpansions();
+		expansionsFlag = new boolean[expansions.length];
+		for(int i = 0; i < expansionsFlag.length; i++){
+			expansionsFlag[i] = true;
+		}
 		
 		findViews();
 		prepareAdapters();
@@ -51,6 +64,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private void findViews(){
+		searchBtn = (Button)findViewById(R.id.search_btn);
 		randomizeBtn = (Button)findViewById(R.id.randomize_btn);
 		allBtn = (Button)findViewById(R.id.all_btn);
 		cardList = (ListView)findViewById(R.id.card_list);
@@ -62,6 +76,46 @@ public class MainActivity extends Activity {
 	}
 	
 	private void initListeners(){
+		searchBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final boolean[] newQuery = Arrays.copyOf(expansionsFlag, expansionsFlag.length);
+				
+				new AlertDialog.Builder(MainActivity.this)
+					.setTitle("")
+					.setMultiChoiceItems(
+							expansions, 
+							newQuery,
+							new OnMultiChoiceClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+									newQuery[which] = isChecked;
+								}
+							})
+					.setPositiveButton("絞り込み", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							expansionsFlag = newQuery;
+							search();
+						}
+					})
+					.setNeutralButton("クリア", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							for(int i = 0; i < expansionsFlag.length; i++){
+								expansionsFlag[i] = true;
+							}
+							search();
+						}
+					})
+					.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					})
+					.show();
+			}
+		});
 		randomizeBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -153,7 +207,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private class CardListAdapter extends BaseAdapter {
-		private ArrayList<Card> data;
+		public ArrayList<Card> data;
 		private LayoutInflater inflater;
 
 		public CardListAdapter(ArrayList<Card> data) {
@@ -214,5 +268,17 @@ public class MainActivity extends Activity {
 		TextView cardNameText;
 		TextView cardExpansionText;
 		Button chooseBtn;
+	}
+	private void search(){
+		ArrayList<Card> searched = new ArrayList<Card>();
+		for(Card c : ((MyApplication)getApplication()).allCards){
+			for(int i = 0; i < expansions.length; i++){
+				if(expansionsFlag[i] && c.expansion.equals(expansions[i])){
+					searched.add(c);
+				}
+			}
+		}
+		cardListAdapter.data = searched;
+		cardListAdapter.notifyDataSetChanged();
 	}
 }

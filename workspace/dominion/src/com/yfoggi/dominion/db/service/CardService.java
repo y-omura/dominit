@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.yfoggi.dominion.db.DbHelper;
 import com.yfoggi.dominion.db.entity.Card;
@@ -53,6 +54,20 @@ public class CardService {
 		c.close();
 		
 		return allCards;
+	}
+	
+	public String[] findExpansions(){
+		Cursor c = db.query(Card.TABLE, new String[]{"expansion"}, null, null, "expansion", null, null);
+		
+		String[] expansions = new String[c.getCount()];
+		int idx = c.getColumnIndex("expansion");
+		Log.e("dominion", idx+"");
+		int i = 0;
+		while(c.moveToNext()){
+			expansions[i++] = c.getString(idx);
+		}
+		
+		return expansions;
 	}
 	
 }

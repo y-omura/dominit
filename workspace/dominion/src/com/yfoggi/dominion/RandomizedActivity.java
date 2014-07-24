@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.app.Activity;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;

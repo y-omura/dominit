@@ -1,12 +1,8 @@
 package com.yfoggi.dominion;
 
-import com.yfoggi.dominion.utils.TweetUtils;
-
 import twitter4j.AsyncTwitter;
 import twitter4j.AsyncTwitterFactory;
 import twitter4j.TwitterAdapter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterMethod;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
@@ -24,6 +20,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.yfoggi.dominion.utils.TweetUtils;
 
 public class TwitterOAuthActivity extends Activity {
 	private Button authBrowserBtn;

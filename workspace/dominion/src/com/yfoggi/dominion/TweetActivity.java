@@ -1,26 +1,20 @@
 package com.yfoggi.dominion;
 
-import com.yfoggi.dominion.utils.MessageUtils;
-import com.yfoggi.dominion.utils.TweetUtils;
-
 import twitter4j.AsyncTwitter;
-import twitter4j.AsyncTwitterFactory;
 import twitter4j.Status;
 import twitter4j.TwitterAdapter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterMethod;
-import twitter4j.auth.AccessToken;
-import twitter4j.conf.ConfigurationContext;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.yfoggi.dominion.utils.MessageUtils;
+import com.yfoggi.dominion.utils.TweetUtils;
 
 public class TweetActivity extends Activity {
 	private EditText tweetEdit;

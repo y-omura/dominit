@@ -1,7 +1,5 @@
 package com.yfoggi.dominion;
 
-import com.yfoggi.dominion.utils.MessageUtils;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +10,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.widget.Toast;
 
 public class SettingsActivity extends Activity {
 	private SettingsFragment settingsFragment;
