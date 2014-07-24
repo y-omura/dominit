@@ -45,6 +45,6 @@ public class TweetUtils {
 			sb.append(c.name).append(" ");
 		}
 		
-		return String.format("%s%s #dominit", sb.toString(), Base64Utils.to(cards));
+		return String.format("%s#dominit", sb.toString());
 	}
 }

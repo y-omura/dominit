@@ -35,6 +35,7 @@ import com.yfoggi.dominion.utils.CardUtils.CardIsTooMany;
 
 public class MainActivity extends Activity {
 	private Button searchBtn;
+	private TextView searchConditionText;
 	private Button randomizeBtn;
 	private Button allBtn;
 	private ListView cardList;
@@ -65,14 +66,16 @@ public class MainActivity extends Activity {
 	
 	private void findViews(){
 		searchBtn = (Button)findViewById(R.id.search_btn);
+		searchConditionText = (TextView)findViewById(R.id.search_condition_text);
 		randomizeBtn = (Button)findViewById(R.id.randomize_btn);
 		allBtn = (Button)findViewById(R.id.all_btn);
 		cardList = (ListView)findViewById(R.id.card_list);
 	}
 	
 	private void prepareAdapters(){
-		cardListAdapter = new CardListAdapter(((MyApplication)getApplication()).allCards);
+		cardListAdapter = new CardListAdapter(new ArrayList<Card>());
 		cardList.setAdapter(cardListAdapter);
+		search();
 	}
 	
 	private void initListeners(){
@@ -99,7 +102,7 @@ public class MainActivity extends Activity {
 							search();
 						}
 					})
-					.setNeutralButton("クリア", new DialogInterface.OnClickListener() {
+					.setNeutralButton("全選択", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							for(int i = 0; i < expansionsFlag.length; i++){
@@ -280,5 +283,23 @@ public class MainActivity extends Activity {
 		}
 		cardListAdapter.data = searched;
 		cardListAdapter.notifyDataSetChanged();
+
+		boolean allflag = true;
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < expansions.length; i++){
+			if(expansionsFlag[i]){
+				sb.append(expansions[i]).append(" ");
+			} else {
+				allflag = false;
+			}
+		}
+		if(sb.toString().equals("")){
+			searchConditionText.setText(getString(R.string.search_condition_nothing));
+		} else if(allflag){
+			searchConditionText.setText(getString(R.string.search_condition_all));
+		} else {
+			searchConditionText.setText(sb.toString());
+		}
+		
 	}
 }

@@ -13,7 +13,9 @@
         android:id="@+id/desc_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_main" />
+        android:text="@string/title_main"
+        android:textSize="20sp"
+        />
 
     <RelativeLayout 
         android:id="@+id/menu_relative"
@@ -33,9 +35,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/randomize" />
+            android:text="@string/randomize"
+            />
         
     </RelativeLayout>
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_condition"
+        />
+    <TextView
+        android:id="@+id/search_condition_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_condition_all"
+        />
     
 	<View
 		android:id="@+id/separator"
@@ -44,7 +59,6 @@
 		android:layout_marginBottom="2dp"
 		android:background="@color/separator" >
 	</View>
-    
 		
 	<LinearLayout
 	    android:id="@+id/header_linear"
@@ -86,6 +100,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="3"
 			android:text="@string/all"
+			android:textSize="12sp"
 			/>
 	</LinearLayout>
    
