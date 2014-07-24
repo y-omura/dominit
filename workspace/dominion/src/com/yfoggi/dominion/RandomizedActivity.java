@@ -3,21 +3,26 @@ package com.yfoggi.dominion;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.yfoggi.dominion.db.entity.Card;
-import com.yfoggi.dominion.utils.Base64Utils;
-
 import android.app.Activity;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.yfoggi.dominion.db.entity.Card;
+import com.yfoggi.dominion.utils.Base64Utils;
+import com.yfoggi.dominion.utils.TweetUtils;
 
 public class RandomizedActivity extends Activity {
 	
@@ -31,6 +36,7 @@ public class RandomizedActivity extends Activity {
 		
 		findViews();
 		prepareAdapters();
+		initListeners();
 	}
 	private void findViews(){
 		cardList = (ListView)findViewById(R.id.card_list);
@@ -50,6 +56,39 @@ public class RandomizedActivity extends Activity {
 		cardListAdapter = new CardListAdapter(cardListData);
 		cardList.setAdapter(cardListAdapter);
 	}
+	private void initListeners(){
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.ramdomized, menu);
+		menu.findItem(R.id.action_tweet).setEnabled(TweetUtils.isConfigured(this));
+		return true;
+	}
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		menu.findItem(R.id.action_tweet).setEnabled(TweetUtils.isConfigured(this));
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if(id == R.id.action_tweet){
+			Intent intent = new Intent(RandomizedActivity.this, TweetActivity.class);
+			intent.putExtra("tweet", TweetUtils.shareCards(RandomizedActivity.this, cardListAdapter.data.toArray(new Card[0])));
+			startActivity(intent);
+		}
+		if (id == R.id.action_settings) {
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+			
+			return true;
+		}
+		return false;
+	}
+	
 	
 	private class CardListAdapter extends BaseAdapter {
 		private ArrayList<Card> data;

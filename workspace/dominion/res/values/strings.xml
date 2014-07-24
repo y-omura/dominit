@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">アプリテスト Dominit</string>
-    <string name="main_activity_title">ランダマイズ対象選択</string>
-    <string name="randomized_activity_title">ランダマイズ結果</string>
+    <string name="app_name">アプリテスト dominit</string>
+    <string name="title_main">ランダマイズ対象選択</string>
+    <string name="title_randomized">ランダマイズ結果</string>
+    <string name="activity_title_randomized">dominit: ランダマイズ結果</string>
+    <string name="activity_title_settings">dominit: 設定</string>
+    <string name="activity_title_twitter_oauth">dominit: Twitter認証</string>
+    <string name="activity_title_tweet">dominit: ツイート</string>
+    
     <string name="search">絞り込み</string>
     <string name="randomize">ランダマイズ</string>
+    <string name="action_tweet">ツイート...</string>
     <string name="tweet">ツイート</string>
     <string name="change">変更</string>
     <string name="all">All</string>
@@ -22,6 +28,16 @@
     <string name="delete_visible_card_state">ランダム対象から外す</string>
     <string name="force_visible_card_state">必ず入れる</string>
     
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">設定</string>
+    <string name="settings">設定</string>
+    <string name="config_twitter">Twitter設定...</string>
+    <string name="config_twitter_unset">認証されていません</string>
+    
+    
+    <string name="pin">PIN</string>
+    <string name="prepare_auth">認証の準備をしています...</string>
+    <string name="prepared_auth">ブラウザで認証画面を開く</string>
+    <string name="auth">認証</string>
+    <string name="delete">削除</string>
 
 </resources>

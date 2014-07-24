@@ -2,23 +2,11 @@ package com.yfoggi.dominion;
 
 import java.util.ArrayList;
 
-import com.yfoggi.dominion.db.DbHelper;
-import com.yfoggi.dominion.db.entity.Card;
-import com.yfoggi.dominion.db.entity.Card.Selection;
-import com.yfoggi.dominion.db.service.CardService;
-import com.yfoggi.dominion.utils.Base64Utils;
-import com.yfoggi.dominion.utils.CardUtils;
-import com.yfoggi.dominion.utils.CardUtils.CardIsShort;
-import com.yfoggi.dominion.utils.CardUtils.CardIsTooMany;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,13 +16,19 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.yfoggi.dominion.db.entity.Card;
+import com.yfoggi.dominion.db.entity.Card.Selection;
+import com.yfoggi.dominion.db.service.CardService;
+import com.yfoggi.dominion.utils.Base64Utils;
+import com.yfoggi.dominion.utils.CardUtils;
+import com.yfoggi.dominion.utils.CardUtils.CardIsShort;
+import com.yfoggi.dominion.utils.CardUtils.CardIsTooMany;
 
 public class MainActivity extends Activity {
 	private Button randomizeBtn;
@@ -142,21 +136,20 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+			
 			return true;
 		}
-		return super.onOptionsItemSelected(item);
+		return false;
 	}
 	
 	private class CardListAdapter extends BaseAdapter {

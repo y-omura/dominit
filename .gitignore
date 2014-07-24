@@ -3,3 +3,4 @@
 .project
 .settings/
 bin/
+twitter4j.properties

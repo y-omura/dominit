@@ -7,28 +7,14 @@
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:layout_marginLeft="@dimen/activity_horizontal_margin"
     android:layout_marginRight="@dimen/activity_horizontal_margin"
-    tools:context="com.yfoggi.dominion.MainActivity" >
+    tools:context="com.yfoggi.dominion.RandomizedActivity" >
     
     <TextView
         android:id="@+id/desc_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/randomized_activity_title" />
+        android:text="@string/title_randomized" />
 
-    <RelativeLayout 
-        android:id="@+id/menu_relative"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        
-        <Button
-            android:id="@+id/tweet_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/tweet" />
-        
-    </RelativeLayout>
     
 	<View
 		android:id="@+id/separator"

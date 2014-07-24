@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import com.yfoggi.dominion.db.entity.Card;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.yfoggi.dominion.db.entity.Card;
 
 public class DbHelper extends SQLiteOpenHelper{
 	static final String DB = "dominit.db";

@@ -2,14 +2,13 @@ package com.yfoggi.dominion.db.service;
 
 import java.util.ArrayList;
 
-import com.yfoggi.dominion.db.DbHelper;
-import com.yfoggi.dominion.db.entity.Card;
-import com.yfoggi.dominion.db.entity.Card.Selection;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.yfoggi.dominion.db.DbHelper;
+import com.yfoggi.dominion.db.entity.Card;
 
 public class CardService {
 	private SQLiteDatabase db;
