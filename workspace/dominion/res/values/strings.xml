@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">アプリテスト dominit</string>
+    <string name="app_name">dominit</string>
     <string name="title_main">ランダマイズ対象選択</string>
     <string name="title_randomized">ランダマイズ結果</string>
     <string name="activity_title_randomized">dominit: ランダマイズ結果</string>
