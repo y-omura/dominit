@@ -12,6 +12,7 @@ public final class R {
     }
     public static final class color {
         public static final int separator=0x7f050000;
+        public static final int special=0x7f050002;
         public static final int week_separator=0x7f050001;
     }
     public static final class dimen {

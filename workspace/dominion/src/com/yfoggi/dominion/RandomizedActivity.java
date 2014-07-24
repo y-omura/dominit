@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yfoggi.dominion.db.entity.Card;
+import com.yfoggi.dominion.dto.RandomizedCard;
 import com.yfoggi.dominion.utils.Base64Utils;
 import com.yfoggi.dominion.utils.CardUtils;
 import com.yfoggi.dominion.utils.CardUtils.CardIsShort;
@@ -46,16 +47,17 @@ public class RandomizedActivity extends Activity {
 		cardList = (ListView)findViewById(R.id.card_list);
 	}
 	private void prepareAdapters(){
-		ArrayList<Card> cardListData;
+		ArrayList<RandomizedCard> cardListData;
 		
 		Intent intent = getIntent();
 		if(intent == null){
-			cardListData  = new ArrayList<Card>();
+			cardListData  = new ArrayList<RandomizedCard>();
 		} else {
 			String cardsString = intent.getStringExtra("cards");
 			Card[] cardsArray = Base64Utils.from(((MyApplication)getApplication()).allCards, cardsString);
-			cardListData = new ArrayList<Card>(Arrays.asList(cardsArray));
+			cardListData = new ArrayList<RandomizedCard>(Arrays.asList(CardUtils.toRandomzied(cardsArray)));
 		}
+		cardListData = CardUtils.configSpecials(cardListData);
 		
 		cardListAdapter = new CardListAdapter(cardListData);
 		cardList.setAdapter(cardListAdapter);
@@ -95,16 +97,16 @@ public class RandomizedActivity extends Activity {
 	
 	
 	private class CardListAdapter extends BaseAdapter {
-		private ArrayList<Card> data;
+		private ArrayList<RandomizedCard> data;
 		private LayoutInflater inflater;
 
-		public CardListAdapter(ArrayList<Card> data) {
-			this.data = new ArrayList<Card>(data);
+		public CardListAdapter(ArrayList<RandomizedCard> data) {
+			this.data = new ArrayList<RandomizedCard>(data);
 			inflater = (LayoutInflater) RandomizedActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
 		@Override
 		public View getView(final int position, View convertView, ViewGroup parent) {
-			final Card c = getItem(position);
+			final RandomizedCard c = getItem(position);
 			
 			final ViewHolder holder;
 			if(convertView == null){
@@ -119,11 +121,16 @@ public class RandomizedActivity extends Activity {
 			} else {
 				holder = (ViewHolder)convertView.getTag();
 			}
+			if(c.special){
+				holder.rerandomizeBtn.setEnabled(false);
+			} else {
+				holder.rerandomizeBtn.setEnabled(true);
+			}
 			
-			holder.cardCostText.setText(c.cost+"");
-			holder.cardNumText.setText(c.num+"");
-			holder.cardNameText.setText(c.name);
-			holder.cardExpansionText.setText(c.expansion);
+			holder.cardCostText.setText(c.getCost());
+			holder.cardNumText.setText(c.getNum()+"");
+			holder.cardNameText.setText(c.getName());
+			holder.cardExpansionText.setText(c.getExpansion());
 			
 			holder.rerandomizeBtn.setOnClickListener(new OnClickListener() {
 				@Override
@@ -139,7 +146,7 @@ public class RandomizedActivity extends Activity {
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										if(which == 0){
-											Card[] cards;
+											RandomizedCard[] cards;
 											try {
 												cards = CardUtils.randomize(((MyApplication)getApplication()).allCards, data, 1);
 											} catch (CardIsShort e) {
@@ -169,12 +176,12 @@ public class RandomizedActivity extends Activity {
 			return data.size();
 		}
 		@Override
-		public Card getItem(int position) {
+		public RandomizedCard getItem(int position) {
 			return data.get(position);
 		}
 		@Override
 		public long getItemId(int position) {
-			return getItem(position).id;
+			return position;
 		}
 	}
 	private static class ViewHolder {

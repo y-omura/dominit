@@ -44,8 +44,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", num=" + num + ", name=" + name + ", cost="
-				+ cost + "]";
+		return "Card ["+"name=" + name + "]";
 	}
 	
 	public enum Selection {

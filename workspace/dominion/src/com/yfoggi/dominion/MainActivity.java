@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.yfoggi.dominion.db.entity.Card;
 import com.yfoggi.dominion.db.entity.Card.Selection;
 import com.yfoggi.dominion.db.service.CardService;
+import com.yfoggi.dominion.dto.RandomizedCard;
 import com.yfoggi.dominion.utils.Base64Utils;
 import com.yfoggi.dominion.utils.CardUtils;
 import com.yfoggi.dominion.utils.CardUtils.CardIsShort;
@@ -125,7 +126,7 @@ public class MainActivity extends Activity {
 				Intent intent = new Intent();
 				intent.setClass(MainActivity.this, RandomizedActivity.class);
 				
-				Card[] randomized;
+				RandomizedCard[] randomized;
 				try {
 					randomized = CardUtils.randomize(((MyApplication)getApplication()).allCards, null, 10);
 				} catch (CardIsShort e) {

@@ -2,4 +2,5 @@
 <resources>
     <color name="separator">#A9A9A9</color>
     <color name="week_separator">#DCDCDC</color>
+    <color name="special">#B22222</color>
 </resources>

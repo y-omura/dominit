@@ -3,6 +3,7 @@ package com.yfoggi.dominion.utils;
 import java.util.ArrayList;
 
 import com.yfoggi.dominion.db.entity.Card;
+import com.yfoggi.dominion.dto.RandomizedCard;
 
 public class Base64Utils {
 	private Base64Utils(){
@@ -30,10 +31,12 @@ public class Base64Utils {
 		return d;
 	}
 	
-	public static String to(Card[] cs){
+	public static String to(RandomizedCard[] cs){
 		StringBuilder sb = new StringBuilder();
-		for(Card c : cs){
-			sb.append(to(c.num, 2));
+		for(RandomizedCard c : cs){
+			if(!c.special){
+				sb.append(to(c.card.num, 2));
+			}
 		}
 		return sb.toString();
 	}
